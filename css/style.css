@@ -136,9 +136,9 @@ section {
 }
 
 .persona-foto {
-    width: 150px;
-    height: 180px;
-    border-radius: 0; /* Así las esquinas serán completamente rectas */
+    width: 180px;
+    height: 200px;
+    border-radius: 0px; /* Forma rectangular con esquinas suaves */
     object-fit: cover;
     border: 2px solid #ddd;
     grid-row: 1;
