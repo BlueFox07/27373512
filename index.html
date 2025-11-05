@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <title>ATI[UCV] 2025-2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        /* HEADER */
+        header {
+            background-color: rgb(30, 157, 231);
+            color: white;
+            padding: 15px;
+            border-bottom: 2px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: space-around; 
+    align-items: center;
+}
+
+.nav-links li {
+    width: 30%; 
+    text-align: center;
+    padding: 15px 0;
+    border-right: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+}
+
+.nav-links li:last-child {
+    border-right: none;
+}
+
+.search-form {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .ati-ucv {
+            font-size: 34px;
+            font-weight: bold;
+        }
+
+        .ucv-text {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .user-greeting {
+            font-weight: bold;
+            color: #f9fcff;
+            font-size: 25px;
+        }
+
+        .search-form input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .search-form button {
+            padding: 8px 15px;
+            background-color: white;
+            color: blue;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #2980b9;
+        }
+
+        /* SECTION */
+        section {
+            background-color: white;
+            margin: 20px auto;
+            padding: 30px;
+            max-width: 1000px;
+            border-top: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            min-height: 400px;
+        }
+
+        .personas-lista {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .persona-item {
+            display: grid;
+            grid-template-rows: auto auto; /* Dos filas: imagen y texto */
+            justify-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .persona-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .persona-foto {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            grid-row: 1;
+        }
+
+        .persona-nombre {
+            font-weight: bold;
+            color: #2c3e50;
+            grid-row: 2;
+            margin: 0;
+        }
+
+        .icono-imagen {
+            width: 40px;
+            height: 40px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: rgb(30, 157, 231);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #ddd;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            
+            <ul class="nav-links">
+                <li><div class="ati-ucv">ATI<span class="ucv-text">[UCV]</span> 2025-2</div></li>
+                <li><div class="user-greeting"> Hola, Brandon </div></li>
+                <li><form class="search-form">
+                <input type="text" placeholder="Buscar..." aria-label="Campo de búsqueda">
+                <button type="submit">Buscar</button>
+            </form></li>
+            </ul>   
+        </nav>
+    </header>
+    <section>
+        <ul class="personas-lista">
+            <!-- Primera persona - con tu información -->
+            <li class="persona-item">
+                <img src="./27373512.png" alt="Brandon Oropeza" class="persona-foto">
+                <span class="persona-nombre">Brandon Oropeza</span>
+            </li>
+            
+            <!-- Personas inventadas -->
+            <li class="persona-item">
+                <img src="./dummy1/dummy.jpg" alt="María González" class="persona-foto">
+                <span class="persona-nombre">María González</span>
+            </li>
+            
+            <li class="persona-item">
+                <img src="./dummy5/dummy.jpg" alt="Carlos Rodríguez" class="persona-foto">
+                <span class="persona-nombre">Carlos Rodríguez</span>
+            </li>
+            
+            <li class="persona-item">
+                <img src="./dummy3/dummy.jpg" alt="Ana Martínez" class="persona-foto">
+                <span class="persona-nombre">Ana Martínez</span>
+            </li>
+            
+            <li class="persona-item">
+                <img src="./dummy4/dummy.jpg" alt="Pedro López" class="persona-foto">
+                <span class="persona-nombre">Pedro López</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy5/dummy.jpg" alt="Pedro López" class="persona-foto">
+                <span class="persona-nombre">John Doe</span>
+            </li>
+            
+            <li class="persona-item">
+                <img src="./dummy6/dummy.jpg" alt="Laura Pérez" class="persona-foto">
+                <span class="persona-nombre">Samuel Pérez</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy2/dummy.jpg" alt="Laura Pérez" class="persona-foto">
+                <span class="persona-nombre">Samira Laureano</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy4/dummy.jpg" alt="Pedro López" class="persona-foto">
+                <span class="persona-nombre">Samuel Orozco</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy4/dummy.jpg" alt="Nick Reyes" class="persona-foto">
+                <span class="persona-nombre">Nick Reyes</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy3/dummy.jpg" alt="Ana Martínez" class="persona-foto">
+                <span class="persona-nombre">Irina Cortez</span>
+            </li>
+
+            <li class="persona-item">
+                <img src="./dummy3/dummy.jpg" alt="Ana Martínez" class="persona-foto">
+                <span class="persona-nombre">Ana Martínez</span>
+            </li>
+        </ul>
+    </section>
+    <br>
+    <footer>
+        <p>Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>
