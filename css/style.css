@@ -1,25 +1,25 @@
 * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-        }
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
 
-        /* HEADER */
-        header {
-            background-color: rgb(30, 157, 231);
-            color: white;
-            padding: 15px;
-            border-bottom: 2px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* HEADER */
+header {
+    background-color: rgb(30, 157, 231);
+    color: white;
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-        .nav-links {
+.nav-links {
     display: flex;
     list-style: none;
     width: 100%;
@@ -48,127 +48,141 @@
     justify-content: center;
 }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: background-color 0.3s;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
 
-        .nav-links a:hover {
-            background-color: #f0f0f0;
-        }
+.nav-links a:hover {
+    background-color: #f0f0f0;
+}
 
-        .ati-ucv {
-            font-size: 34px;
-            font-weight: bold;
-        }
+.ati-ucv {
+    font-size: 34px;
+    font-weight: bold;
+}
 
-        .ucv-text {
-            font-size: 14px;
-            color: #ffffff;
-        }
+.ucv-text {
+    font-size: 14px;
+    color: #ffffff;
+}
 
-        .user-greeting {
-            font-weight: bold;
-            color: #f9fcff;
-            font-size: 25px;
-        }
+.user-greeting {
+    font-weight: bold;
+    color: #f9fcff;
+    font-size: 25px;
+}
 
-        .search-form input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 200px;
-        }
+.search-form input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
 
-        .search-form button {
-            padding: 8px 15px;
-            background-color: white;
-            color: blue;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+.search-form button {
+    padding: 8px 15px;
+    background-color: white;
+    color: blue;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        .search-form button:hover {
-            background-color: #2980b9;
-        }
+.search-form button:hover {
+    background-color: #2980b9;
+}
 
-        /* SECTION */
-        section {
-            background-color: white;
-            margin: 20px auto;
-            padding: 30px;
-            max-width: 1000px;
-            border-top: 2px solid #ddd;
-            border-bottom: 2px solid #ddd;
-            min-height: 400px;
-        }
+/* SECTION */
+section {
+    background-color: white;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 1000px;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    min-height: 400px;
+}
 
-        .personas-lista {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+.personas-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
 
-        .persona-item {
-            display: grid;
-            grid-template-rows: auto auto; /* Dos filas: imagen y texto */
-            justify-items: center;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
+.persona-item {
+    display: grid;
+    grid-template-rows: auto auto; /* Dos filas: imagen y texto */
+    justify-items: center;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease-in-out; /* Transición suave para todos los efectos */
+    background-color: white; /* Color inicial */
+}
 
-        .persona-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+/* ANIMACIÓN AL PASAR EL RATÓN */
+.persona-item:hover {
+    transform: scale(1.05) rotate(2deg); /* Zoom + rotación */
+    background-color: #99c5dd !important; /* Color de fondo solicitado */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+}
 
-        .persona-foto {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ddd;
-            grid-row: 1;
-        }
+.persona-foto {
+    width: 150px;
+    height: 180px;
+    border-radius: 0; /* Así las esquinas serán completamente rectas */
+    object-fit: cover;
+    border: 2px solid #ddd;
+    grid-row: 1;
+    transition: transform 0.3s ease-in-out;
+}
 
-        .persona-nombre {
-            font-weight: bold;
-            color: #2e6ba8;
-            grid-row: 2;
-            margin: 0;
-        }
+.persona-item:hover .persona-foto {
+    transform: scale(1.1) rotate(5deg); /* Efecto contrario en la imagen */
+}
 
-        .icono-imagen {
-            width: 40px;
-            height: 40px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
+.persona-nombre {
+    font-weight: bold;
+    color: #2e6ba8;
+    grid-row: 2;
+    margin: 0;
+    transition: all 0.3s ease-in-out; /* Transición para el texto */
+}
 
-        /* FOOTER */
-        footer {
-            background-color: rgb(30, 157, 231);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-top: 2px solid #ddd;
-            margin-top: 20px;
-        }
+.persona-item:hover .persona-nombre {
+    color: #1a4a7a; /* Color más oscuro al hacer hover */
+    transform: scale(1.05); /* Zoom en el texto */
+}
 
-        footer p {
-            margin: 0;
-            color: black;
-        }
+.icono-imagen {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* FOOTER */
+footer {
+    background-color: rgb(30, 157, 231);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #ddd;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
+    color: black;
+}
 
         .contenedor {
             display: flex;
