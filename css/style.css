@@ -216,6 +216,193 @@ footer p {
     font-size: 1rem; 
 }
 
+/* MEDIA QUERIES CON BREAKPOINTS - PARA TODAS LAS IMÁGENES */
+
+/* 320px - 480px: Dispositivos móviles */
+@media (max-width: 480px) {
+    :root {
+        font-size: 14px; /* Reducir base font-size para móviles */
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 0.625rem; 
+    }
+    
+    .nav-links li {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: 0.0625rem solid #ccc; 
+        padding: 0.625rem 0; 
+    }
+    
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+    
+    .ati-ucv {
+        font-size: 1.5rem; 
+    }
+    
+    .user-greeting {
+        font-size: 1.25rem; 
+    }
+    
+    .search-form {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .search-form input {
+        width: 100%;
+        max-width: 15rem; 
+    }
+    
+    .personas-lista {
+        grid-template-columns: repeat(auto-fill, minmax(8.75rem, 1fr)); 
+        gap: 0.9375rem; /* 15px */
+    }
+    
+    /* MÓVILES: Todas las imágenes usan versión PEQUEÑA */
+    .imagen-grande {
+        display: none !important;
+    }
+    
+    .imagen-pequena {
+        display: block !important;
+        width: 7.5rem; 
+        height: 8.75rem; 
+    }
+    
+    .persona-nombre {
+        font-size: 1rem; 
+    }
+}
+
+/* 481px - 768px: iPads, tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    :root {
+        font-size: 11px;
+    }
+    
+    .nav-links {
+        flex-wrap: nowrap;
+    }
+    
+    .nav-links li {
+        min-height: 2.5rem; 
+        padding: 0.5rem 0; 
+    }
+    
+    .ati-ucv {
+        font-size: 1.75rem; 
+    }
+    
+    .user-greeting {
+        font-size: 1.375rem; 
+    }
+    
+    .personas-lista {
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); 
+    }
+    
+    /* TABLETS: Todas las imágenes usan versión PEQUEÑA */
+    .imagen-grande {
+        display: none !important;
+    }
+    
+    .imagen-pequena {
+        display: block !important;
+        width: 8.75rem; 
+        height: 10rem; 
+    }
+}
+
+/* 769px - 1024px: pantallas pequeñas, ordenadores portátiles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+
+    section {
+        max-width: 90%;
+        padding: 1.25rem; 
+    }
+
+    .personas-lista {
+        grid-template-columns: repeat(auto-fill, minmax(11.25rem, 1fr)); 
+    }
+    
+    /* LAPTOPS: Todas las imágenes usan versión GRANDE */
+    .imagen-grande {
+        display: block !important;
+        width: 10rem; 
+        height: 11.25rem; 
+    }
+    
+    .imagen-pequena {
+        display: none !important;
+    }
+}
+
+/* 1025px - 1200px: pantallas grandes, ordenadores de escritorio */
+@media (min-width: 1025px) and (max-width: 1200px) {
+
+    section {
+        max-width: 75rem; 
+    }
+
+    .ati-ucv {
+        font-size: 2.35rem; 
+    }
+    
+    .user-greeting {
+        font-size: 1.775rem; 
+    }
+    
+    .personas-lista {
+        grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); /* 200px */
+    }
+
+    .persona-nombre {
+        font-size: 1.5rem; 
+    }
+    
+    /* DESKTOP: Todas las imágenes usan versión GRANDE */
+    .imagen-grande {
+        display: block !important;
+        width: 11.25rem; 
+        height: 12.5rem; 
+    }
+    
+    .imagen-pequena {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1201px) {
+    section {
+        max-width: 70rem;
+    }
+    
+    .personas-lista {
+        grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); /* 200px */
+    }
+    
+    .persona-item {
+        min-height: 12.5rem; /* 200px - cuadrado */
+    }
+    
+    /* DESKTOP GRANDE: Todas las imágenes usan versión GRANDE */
+    .imagen-grande {
+        display: block !important;
+        width: 100%;
+    }
+    
+    .imagen-pequena {
+        display: none !important;
+    }
+}
+
 /*---------------------------------------------------------------*/
 
 /* perfil.html*/
@@ -320,7 +507,6 @@ footer p {
 }
 
 .campo-label {
-    font-weight: bold;
     font-size: 1rem; 
 }
 
@@ -330,4 +516,231 @@ footer p {
 
 .campo-completo {
     grid-column: 1 / -1;
+}
+
+/* MEDIA QUERIES CON BREAKPOINTS ESPECÍFICOS */
+
+/* 320px - 480px: Dispositivos móviles */
+@media (max-width: 480px) {
+    :root {
+        font-size: 14px; /* Reducir base font-size para móviles */
+    }
+    
+    .contenedor {
+       grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 0.9375rem; 
+        padding: 0.625rem; 
+        margin: 0.625rem auto; 
+    } 
+    
+    .imagen-container {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+        text-align: center;
+    }
+    
+    /* MÓVILES: Usar imagen PEQUEÑA */
+    .imagen-grandeX {
+        display: none;
+    }
+    
+    .imagen-pequenaX {
+        display: inline-block;
+        width: 6.25rem; 
+        height: 9.375rem; 
+        border-top-left-radius: 3.125rem; 
+    }
+    
+    .datos-perfil {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .nombre {
+        font-size: 1.375rem; 
+        text-align: center;
+    }
+    
+    .perfil {
+        padding: 0.9375rem; 
+    }
+    
+    .campo {
+        grid-template-columns: 1fr;
+        gap: 0.3125rem; 
+        padding: 0.5rem 0; 
+    }
+    
+    .destacado {
+        padding: 0.75rem; 
+        margin: 0.75rem 0; 
+        font-size: 0.9rem; 
+    }
+}
+
+/* 481px - 768px: iPads, tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    :root {
+        font-size: 14.5px;
+    }
+    
+    .contenedor {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 1.125rem; 
+        padding: 0.9375rem; 
+        max-width: 90%;
+    }
+    
+    .imagen-container {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+        text-align: center;
+    }
+    
+    /* TABLETS: Usar imagen PEQUEÑA */
+    .imagen-grandeX {
+        display: none;
+    }
+    
+    .imagen-pequenaX {
+        display: inline-block;
+        width: 8rem; 
+        height: 10rem; 
+        border-top-left-radius: 3.75rem;
+    }
+    
+    .datos-perfil {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .nombre {
+        font-size: 1.5rem; 
+        text-align: center;
+    }
+    
+    .campo {
+        grid-template-columns: 10.5rem 1fr; 
+        gap: 0.75rem; 
+    }
+    
+    .perfil {
+        padding: 1.125rem; 
+    }
+}
+
+/* 769px - 1024px: pantallas pequeñas, ordenadores portátiles */
+@media (min-width: 769px) and (max-width: 1024px) {
+     :root {
+        font-size: 16.4px;
+    }
+
+    .contenedor {
+        max-width: 90%;
+        gap: 1.5rem; 
+        padding: 1.5rem; 
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+    
+    .imagen-container {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center; 
+        text-align: center;
+    }
+    
+    /* LAPTOPS: Usar imagen GRANDE */
+    .imagen-grandeX {
+        display: block;
+        width: 14rem; 
+        height: 17rem; 
+        border-top-left-radius: 4rem; 
+        margin: 0 auto; 
+    }
+    
+    .imagen-pequenaX {
+        display: none;
+    }
+
+    .datos-perfil {
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%; 
+        max-width: 680px; 
+        margin: 0 auto; 
+    }
+    
+    .nombre {
+        font-size: 1.625rem; 
+        text-align: center; 
+    }
+
+    .campo {
+        grid-template-columns: 18.75rem 1fr; 
+        gap: 0.875rem; 
+    }
+    
+}
+
+/* 1025px - 1200px: pantallas grandes, ordenadores de escritorio */
+@media (min-width: 1025px) and (max-width: 1200px) {
+
+    .contenedor {
+        max-width: 68.75rem; 
+        gap: 1.75rem; 
+    }
+    
+    /* ESCRITORIO: Usar imagen GRANDE */
+    .imagen-grandeX {
+        display: block;
+        width: 16.75rem; 
+        height: 25.75rem; 
+        border-top-left-radius: 4.6875rem; 
+    }
+    
+    .imagen-pequenaX {
+        display: none;
+    }
+    
+    .nombre {
+        font-size: 1.75rem; 
+    }
+    
+    .campo {
+        grid-template-columns: 23.75rem 1fr; 
+        gap: 0.9375rem; 
+    }
+}
+
+/* Pantallas mayores a 1200px */
+@media (min-width: 1201px) {
+    :root {
+        font-size: 15.5px;
+    }
+
+    .contenedor {
+        max-width: 79.75rem; 
+    }
+
+    .campo {
+        grid-template-columns: 27.75rem 1fr; 
+        gap: 0.9375rem; 
+    }
+    
+    /* ESCRITORIO GRANDE: Usar imagen GRANDE */
+    .imagen-grandeX {
+        display: block;
+        width: 18.75rem; 
+        height: 26.75rem; 
+        border-top-left-radius: 4.6875rem; 
+    }
+    
+    .imagen-pequenaX {
+        display: none;
+    }
 }
