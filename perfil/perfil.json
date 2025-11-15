@@ -1,0 +1,14 @@
+const perfil = {	
+	"nombre":"Brandon Jesus Oropeza Bolivar",
+	"descripcion":"Soy estudiante de la Escuela de Computación, perteneciente a la Facultad de Ciencias de la UCV. Asi como tambien, ser TSU en Informática",
+	"color": "Azul",
+	"libro": ["El color que cayó del cielo"],
+	"musica": ["Rock"],
+	"video_juego": ["Pokemon","Dark Souls"],
+	"lenguajes":["C/C++", "Python", "HTML", "PHP"],
+	"email":"brandonoropeza237@gmail.com",
+	"ci":"27373512",
+	"genero": "masculino",
+	"fecha_nacimiento":"22/06/1999",
+	"imagen": "27373512.jpg"
+}
