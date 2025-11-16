@@ -15,6 +15,11 @@ const perfil = {
 
 const perfiles = [
     {
+        "ci": "27373512",
+        "imagen": "27373512\/27373512.png",
+        "nombre": "Brandon Jesus Oropeza Bolivar"
+    },
+    {
         "ci": "19371273",
         "imagen": "19371273\/19371273.jpg",
         "nombre": "Raquel Escalante Salazar"

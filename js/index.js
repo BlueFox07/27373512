@@ -1,54 +1,108 @@
 // js/index.js
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar la aplicación cuando el DOM esté listo
-    inicializar();
-});
+// Variables globales
+let listaPerfiles = [];
+let appConfig = null;
+let inicializado = false; // Bandera para evitar bucles
 
 function inicializar() {
-    console.log('Inicializando aplicación...');
-    
-    // Cargar configuración
-    cargarConfiguracion();
-    
-    // Configurar event listeners
-    configurarEventos();
-}
-
-function cargarConfiguracion() {
-    // Usar la variable global config que está definida en el JSON
-    if (typeof config !== 'undefined') {
-        aplicarConfiguracion(config);
-    } else {
-        console.warn('No se encontró la configuración global "config"');
-        aplicarConfiguracion(getConfigPorDefecto());
+    // Evitar inicialización múltiple
+    if (inicializado) {
+        console.log('⚠️ La aplicación ya estaba inicializada');
+        return;
     }
+    
+    inicializado = true;
+    console.log('✅ Inicializando aplicación...');
+    
+    // ACCESO DIRECTO A LAS VARIABLES GLOBALES
+    if (typeof config !== 'undefined') {
+        console.log('✅ Configuración encontrada en variable global "config"');
+        appConfig = config;
+        aplicarConfiguracion(appConfig);
+    } else {
+        console.warn('❌ Variable "config" no encontrada');
+        usarConfigPorDefecto();
+    }
+    
+    // ACCESO DIRECTO A LA VARIABLE GLOBAL perfiles
+    if (typeof perfiles !== 'undefined') {
+        console.log('✅ Lista de estudiantes encontrada en variable global "perfiles"');
+        listaPerfiles = perfiles;
+        mostrarEstudiantesEnHTML();
+    } else {
+        console.warn('❌ Variable "perfiles" no encontrada');
+    }
+    
+    configurarEventos();
+    console.log('✅ Aplicación inicializada correctamente');
 }
 
-function getConfigPorDefecto() {
-    return {
-        "sitio": ["ATI", "[UCV]", "2025-2"],
-        "home": "Inicio",
-        "login": "Entrar",
-        "copyRight": "Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados",
-        "nombre": "Nombre",
-        "buscar": "Buscar",
-        "saludo": "Hola"
-    };
+function mostrarEstudiantesEnHTML() {
+    const listaContainer = document.querySelector('.personas-lista');
+    
+    if (!listaContainer) {
+        console.error('No se encontró el contenedor de la lista');
+        return;
+    }
+    
+    // Limpiar la lista actual
+    listaContainer.innerHTML = '';
+    
+    // Verificar si hay estudiantes para mostrar
+    if (!listaPerfiles || listaPerfiles.length === 0) {
+        return;
+    }
+    
+    // Crear elementos para cada estudiante
+    listaPerfiles.forEach((perfil, index) => {
+        const elementoEstudiante = crearElementoEstudiante(perfil);
+        listaContainer.appendChild(elementoEstudiante);
+    });
+    
+    console.log(`✅ Mostrados ${listaPerfiles.length} estudiantes`);
+}
+
+function crearElementoEstudiante(perfil) {
+    const li = document.createElement('li');
+    li.className = 'persona-item';
+    
+    // USA LAS RUTAS EXACTAS DEL JSON - ya incluyen las carpetas
+    const imagenSrc = `./reto3/${perfil.imagen}`;
+    
+    li.innerHTML = `
+        <div class="imagen-container">
+            <img src="${imagenSrc}" alt="${perfil.nombre}" class="persona-foto imagen-grande" 
+                 onerror="this.style.display='none'">
+            <img src="${imagenSrc}" alt="${perfil.nombre}" class="persona-foto imagen-pequena"
+                 onerror="this.style.display='none'">
+        </div>
+        <span class="persona-nombre">${perfil.nombre}</span>
+    `;
+    
+    // Agregar evento click para redirigir al perfil
+    if (perfil.ci) {
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', function() {
+            console.log(`Redirigiendo al perfil de ${perfil.nombre}`);
+            window.location.href = `./reto3/${perfil.ci}/perfil.html`;
+        });
+    }
+    
+    return li;
 }
 
 function aplicarConfiguracion(config) {
-    console.log('Aplicando configuración:', config);
+    console.log('Aplicando configuración al HTML...');
     
-    // Actualizar el título de la página con los datos del sitio
+    // Título de la página
     if (config.sitio && Array.isArray(config.sitio)) {
         document.title = config.sitio.join(' ');
     }
     
-    // Actualizar el header ATI[UCV]
+    // Header ATI[UCV]
     const atiElement = document.querySelector('.ati-ucv');
     if (atiElement && config.sitio) {
-        // Formatear el texto del sitio: "ATI[UCV] 2025-2"
         let textoSitio = '';
         if (config.sitio.length >= 3) {
             textoSitio = `${config.sitio[0]}${config.sitio[1]} ${config.sitio[2]}`;
@@ -58,44 +112,47 @@ function aplicarConfiguracion(config) {
         atiElement.textContent = textoSitio;
     }
     
-    // Actualizar saludo del usuario
+    // Saludo del usuario
     const greetingElement = document.querySelector('.user-greeting');
     if (greetingElement && config.saludo) {
-        // Mantener "Hola, Brandon" o aplicar nuevo saludo
-        const nombreActual = greetingElement.textContent.replace('Hola, ', '');
-        if (nombreActual && nombreActual !== 'Brandon') {
-            greetingElement.textContent = `${config.saludo}, ${nombreActual}`;
-        } else {
-            greetingElement.textContent = config.saludo;
-        }
+        greetingElement.textContent = `${config.saludo}, Brandon`;
     }
     
-    // Actualizar placeholder del buscador
+    // Campo de búsqueda
     const searchInput = document.querySelector('.search-form input');
     if (searchInput && config.buscar) {
         searchInput.placeholder = config.buscar + '...';
     }
     
-    // Actualizar texto del botón de búsqueda
+    // Botón de búsqueda
     const searchButton = document.querySelector('.search-form button');
     if (searchButton && config.buscar) {
         searchButton.textContent = config.buscar;
     }
     
-    // Actualizar el footer
+    // Footer
     const footerElement = document.querySelector('footer p');
     if (footerElement && config.copyRight) {
         footerElement.textContent = config.copyRight;
     }
     
-    const section = document.querySelector('section');
-    if (section && config.home) {
-        //section.innerHTML = `<h2>${config.home}</h2>`;
-    }
+    console.log('✅ Configuración aplicada correctamente');
+}
+
+function usarConfigPorDefecto() {
+    appConfig = {
+        "sitio": ["ATI", "[UCV]", "2025-2"],
+        "home": "Inicio",
+        "login": "Entrar",
+        "copyRight": "Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados",
+        "nombre": "Nombre",
+        "buscar": "Buscar",
+        "saludo": "Hola, Brandon"
+    };
+    aplicarConfiguracion(appConfig);
 }
 
 function configurarEventos() {
-    // Manejar el formulario de búsqueda
     const searchForm = document.querySelector('.search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
@@ -107,34 +164,22 @@ function configurarEventos() {
         });
     }
     
-    console.log('Eventos configurados correctamente');
+    console.log('✅ Eventos configurados');
 }
 
 function realizarBusqueda(termino) {
-    console.log(`Realizando búsqueda: ${termino}`);
-    
+    console.log(`Buscando: ${termino}`);
     alert(`Buscando: ${termino}`);
 }
 
-
-function actualizarSaludo(nombre) {
-    const greetingElement = document.querySelector('.user-greeting');
-    if (greetingElement && config && config.saludo) {
-        greetingElement.textContent = `${config.saludo}, ${nombre}`;
-    }
-}
-
-function resetearConfiguracion() {
-    aplicarConfiguracion(getConfigPorDefecto());
-}
-
-window.appController = {
-    actualizarSaludo: actualizarSaludo,
-    resetearConfiguracion: resetearConfiguracion,
-    realizarBusqueda: realizarBusqueda
-};
-
-// Verificar que todo se cargó correctamente
+// Inicializar cuando la página esté completamente cargada
 window.addEventListener('load', function() {
-    console.log('Aplicación completamente cargada y configurada');
+    console.log('🔄 Página completamente cargada, verificando variables globales...');
+    console.log('config disponible:', typeof config !== 'undefined');
+    console.log('perfiles disponible:', typeof perfiles !== 'undefined');
+    
+    // Pequeño delay para asegurar que todo esté listo
+    setTimeout(() => {
+        inicializar();
+    }, 100);
 });
