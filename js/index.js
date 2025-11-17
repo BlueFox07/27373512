@@ -3,10 +3,9 @@
 // Variables globales
 let listaPerfiles = [];
 let appConfig = null;
-let inicializado = false; // Bandera para evitar bucles
+let inicializado = false; 
 
 function inicializar() {
-    // Evitar inicialización múltiple
     if (inicializado) {
         console.log('⚠️ La aplicación ya estaba inicializada');
         return;
@@ -15,7 +14,6 @@ function inicializar() {
     inicializado = true;
     console.log('✅ Inicializando aplicación...');
     
-    // ACCESO DIRECTO A LAS VARIABLES GLOBALES
     if (typeof config !== 'undefined') {
         console.log('✅ Configuración encontrada en variable global "config"');
         appConfig = config;
@@ -25,7 +23,6 @@ function inicializar() {
         usarConfigPorDefecto();
     }
     
-    // ACCESO DIRECTO A LA VARIABLE GLOBAL perfiles
     if (typeof perfiles !== 'undefined') {
         console.log('✅ Lista de estudiantes encontrada en variable global "perfiles"');
         listaPerfiles = perfiles;
@@ -67,7 +64,6 @@ function crearElementoEstudiante(perfil) {
     const li = document.createElement('li');
     li.className = 'persona-item';
     
-    // USA LAS RUTAS EXACTAS DEL JSON - ya incluyen las carpetas
     const imagenSrc = `./reto3/${perfil.imagen}`;
     
     li.innerHTML = `
@@ -80,7 +76,6 @@ function crearElementoEstudiante(perfil) {
         <span class="persona-nombre">${perfil.nombre}</span>
     `;
     
-    // Agregar evento click para redirigir al perfil
     if (perfil.ci) {
         li.style.cursor = 'pointer';
         li.addEventListener('click', function() {

@@ -9,6 +9,5 @@ const perfil = {
 	"email":"brandonoropeza237@gmail.com",
 	"ci":"27373512",
 	"genero": "masculino",
-	"fecha_nacimiento":"22/06/1999",
-	"imagen": "27373512.jpg"
+	"fecha_nacimiento":"22/06/1999"
 }
