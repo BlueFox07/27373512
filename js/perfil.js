@@ -208,10 +208,8 @@ async function cargarPerfil() {
 async function mostrarDatosPerfil(perfil, ci) {
     console.log('Mostrando datos del perfil:', perfil);
 
-    // Actualizar título de la página con el nombre del perfil
     document.title = perfil.nombre || 'Perfil';
 
-    // ENCONTRAR IMAGEN AUTOMÁTICAMENTE
     const rutaImagen = await encontrarImagen(ci);
     
     if (rutaImagen) {

@@ -15,6 +15,15 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     font-size: 1rem; 
+    /* FLEXBOX PARA ESTRUCTURA - NUEVO */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* CONTENEDOR PRINCIPAL - NUEVO */
+main {
+    flex: 1; /* Esto hace que el main ocupe todo el espacio disponible */
 }
 
 header {
@@ -159,6 +168,28 @@ section {
     transition: transform 0.3s ease-in-out;
 }
 
+.no-results-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    padding: 2rem;
+}
+
+.no-results-message {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    max-width: 500px;
+    width: 100%;
+}
+
 /* IMÁGENES ADAPTABLES PARA TODOS LOS USUARIOS */
 
 /* Imágenes GRANDES - Para escritorio */
@@ -200,14 +231,15 @@ section {
     vertical-align: middle;
 }
 
-/* FOOTER */
+/* FOOTER - MODIFICADO */
 footer {
     background-color: rgb(30, 157, 231);
     color: white;
     text-align: center;
     padding: 1.25rem; 
     border-top: 0.125rem solid #ddd; 
-    margin-top: 1.25rem; 
+    /* CAMBIO: quitamos margin-top y usamos margin-top: auto */
+    margin-top: auto; /* Esto empuja el footer hacia abajo */
 }
 
 footer p {
@@ -402,7 +434,6 @@ footer p {
         display: none !important;
     }
 }
-
 /*---------------------------------------------------------------*/
 
 /* perfil.html*/

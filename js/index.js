@@ -14,7 +14,7 @@ const configuracionIdiomas = {
 
 // Función para obtener parámetros de la URL
 function obtenerParametroURL(nombre) {
-    const urlParams = new URLSearchParams(window.location.search); //Ej: ?lang=en
+    const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(nombre);
 }
 
@@ -28,7 +28,7 @@ async function cargarIdioma() {
     if (lang === 'es') {
         if (typeof config !== 'undefined') {
             configIdioma = config;
-            console.log('✅ Configuración ES cargada desde HTML');
+            console.log('Configuración ES cargada desde HTML');
             aplicarIdiomaInterfaz();
             return configIdioma;
         } else {
@@ -51,7 +51,7 @@ async function cargarIdioma() {
             // Buscar la variable de configuración
             if (typeof config !== 'undefined') {
                 configIdioma = config;
-                console.log(`✅ Configuración ${lang.toUpperCase()} cargada:`, configIdioma);
+                console.log(`Configuración ${lang.toUpperCase()} cargada:`, configIdioma);
                 aplicarIdiomaInterfaz();
                 resolve(configIdioma);
             } else {
@@ -82,7 +82,8 @@ function getConfigPorDefecto() {
         "login": "Entrar",
         "copyRight": "Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados",
         "buscar": "Buscar",
-        "saludo": "Hola"
+        "saludo": "Hola",
+        "noResultados": "No hay alumnos que tengan en su nombre: [query]"
     };
 }
 
@@ -97,17 +98,24 @@ function aplicarIdiomaInterfaz() {
         document.title = configIdioma.sitio.join(' ');
     }
     
-    // Header ATI[UCV]
-    const atiElement = document.querySelector('.ati-ucv');
-    if (atiElement && configIdioma.sitio) {
-        let textoSitio = '';
-        if (configIdioma.sitio.length >= 3) {
-            textoSitio = `${configIdioma.sitio[0]}${configIdioma.sitio[1]} ${configIdioma.sitio[2]}`;
-        } else {
-            textoSitio = configIdioma.sitio.join(' ');
-        }
-        atiElement.textContent = textoSitio;
+   // Header ATI[UCV]
+const atiElement = document.querySelector('.ati-ucv');
+if (atiElement && configIdioma.sitio) {
+    let textoSitio = '';
+    if (configIdioma.sitio.length >= 3) {
+        // Si hay 3 elementos, asumimos: [0]=ATI, [1]=[UCV], [2]=año
+        const atiText = atiElement.querySelector('.ati-text');
+        const ucvText = atiElement.querySelector('.ucv-text');
+        const yearText = atiElement.querySelector('.year-text');
+        
+        if (atiText) atiText.textContent = configIdioma.sitio[0];
+        if (ucvText) ucvText.textContent = configIdioma.sitio[1];
+        if (yearText) yearText.textContent = configIdioma.sitio[2];
+    } else {
+        // Fallback: unir todo en el contenedor principal
+        atiElement.textContent = configIdioma.sitio.join(' ');
     }
+}
     
     // Saludo del usuario
     const greetingElement = document.querySelector('.user-greeting');
@@ -133,60 +141,101 @@ function aplicarIdiomaInterfaz() {
         footerElement.textContent = configIdioma.copyRight;
     }
     
-    console.log('✅ Interfaz actualizada con el idioma seleccionado');
+    console.log('Interfaz actualizada con el idioma seleccionado');
 }
 
-// Función para inicializar la aplicación
+// Función para inicializar la pagina
 async function inicializar() {
     if (inicializado) {
-        console.log('⚠️ La aplicación ya estaba inicializada');
+        console.log('La pagina ya estaba inicializada');
         return;
     }
     
     inicializado = true;
-    console.log('✅ Inicializando aplicación...');
+    console.log('Inicializando aplicación...');
     
     // Primero cargar el idioma
     await cargarIdioma();
     
     // Luego cargar los perfiles (ya están cargados en el HTML)
     if (typeof perfiles !== 'undefined') {
-        console.log('✅ Lista de estudiantes encontrada en variable global "perfiles"');
+        console.log('Lista de estudiantes encontrada en variable global "perfiles"');
         listaPerfiles = perfiles;
-        mostrarEstudiantesEnHTML();
+        mostrarEstudiantesEnHTML(listaPerfiles);
     } else {
-        console.warn('❌ Variable "perfiles" no encontrada');
+        console.warn('Variable "perfiles" no encontrada');
     }
     
     configurarEventos();
-    console.log('✅ Aplicación inicializada correctamente');
+    console.log('Aplicación inicializada correctamente');
 }
 
-function mostrarEstudiantesEnHTML() {
-    const listaContainer = document.querySelector('.personas-lista');
+// Función para mostrar estudiantes en el HTML
+function mostrarEstudiantesEnHTML(estudiantes, query = '') {
+    const sectionContainer = document.querySelector('section');
     
-    if (!listaContainer) {
-        console.error('No se encontró el contenedor de la lista');
+    if (!sectionContainer) {
+        console.error('No se encontró el contenedor section');
         return;
     }
     
-    // Limpiar la lista actual
-    listaContainer.innerHTML = '';
+    // Limpiar la sección completa
+    sectionContainer.innerHTML = '';
     
     // Verificar si hay estudiantes para mostrar
-    if (!listaPerfiles || listaPerfiles.length === 0) {
+    if (!estudiantes || estudiantes.length === 0) {
+        mostrarMensajeNoResultados(query, sectionContainer);
         return;
     }
     
+    // Si hay estudiantes, crear la estructura normal con la lista
+    const divContainer = document.createElement('div');
+    // Mantener la misma clase que tenía originalmente
+    divContainer.className = 'personas-container'; 
+    
+    const listaContainer = document.createElement('ul');
+    listaContainer.className = 'personas-lista';
+    
     // Crear elementos para cada estudiante
-    listaPerfiles.forEach((perfil, index) => {
+    estudiantes.forEach((perfil) => {
         const elementoEstudiante = crearElementoEstudiante(perfil);
         listaContainer.appendChild(elementoEstudiante);
     });
     
-    console.log(`✅ Mostrados ${listaPerfiles.length} estudiantes`);
+    divContainer.appendChild(listaContainer);
+    sectionContainer.appendChild(divContainer);
+    
+    console.log(`Mostrados ${estudiantes.length} estudiantes`);
 }
 
+// Función para mostrar mensaje cuando no hay resultados
+function mostrarMensajeNoResultados(query = '', sectionContainer) {
+    if (!sectionContainer) {
+        sectionContainer = document.querySelector('section');
+    }
+    
+    let mensaje = configIdioma?.noResultados || 'No hay alumnos que tengan en su nombre: [query]';
+    
+    // Reemplazar [query] por el término de búsqueda real
+    if (query && mensaje.includes('[query]')) {
+        mensaje = mensaje.replace('[query]', `"${query}"`);
+    } else if (mensaje.includes('[query]')) {
+        mensaje = mensaje.replace('[query]', '');
+    }
+    
+    // Crear la estructura HTML completa para "sin resultados"
+    sectionContainer.innerHTML = `
+        <div class="no-results-container">
+            <div class="no-results-message">
+                ${mensaje}
+            </div>
+        </div>
+    `;
+    
+    console.log('Mostrando mensaje de no resultados:', mensaje);
+}
+
+// Función para crear elemento de estudiante
 function crearElementoEstudiante(perfil) {
     const li = document.createElement('li');
     li.className = 'persona-item';
@@ -215,24 +264,56 @@ function crearElementoEstudiante(perfil) {
     return li;
 }
 
+// Función para realizar búsqueda en tiempo real
+function realizarBusqueda(query) {
+    console.log(`Buscando: "${query}"`);
+    
+    if (!query.trim()) {
+        // Si la búsqueda está vacía, mostrar todos los estudiantes
+        mostrarEstudiantesEnHTML(listaPerfiles);
+        return;
+    }
+    
+    // Filtrar estudiantes cuyo nombre contenga el query (case insensitive)
+    const resultados = listaPerfiles.filter(estudiante => 
+        estudiante.nombre.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    console.log(`Encontrados ${resultados.length} resultados para "${query}"`);
+    
+    // Mostrar resultados o mensaje de no resultados
+    mostrarEstudiantesEnHTML(resultados, query);
+}
+
+// Función para configurar eventos
 function configurarEventos() {
     const searchForm = document.querySelector('.search-form');
+    const searchInput = document.querySelector('.search-form input[type="text"]');
+    
+    // Evento para búsqueda en tiempo real
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            realizarBusqueda(query);
+        });
+    }
+    
+    // Evento para submit del formulario (prevenir comportamiento por defecto)
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const searchInput = this.querySelector('input[type="text"]');
             if (searchInput && searchInput.value.trim()) {
                 realizarBusqueda(searchInput.value.trim());
             }
         });
     }
     
-    console.log('✅ Eventos configurados');
+    console.log('Eventos configurados');
 }
 
 // Inicializar cuando la página esté completamente cargada
 window.addEventListener('load', function() {
-    console.log('🔄 Página completamente cargada');
+    console.log('Página completamente cargada');
     console.log('Parámetro lang:', obtenerParametroURL('lang'));
     console.log('config disponible en HTML:', typeof config !== 'undefined');
     console.log('perfiles disponible:', typeof perfiles !== 'undefined');
