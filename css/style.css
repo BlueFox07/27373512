@@ -80,14 +80,27 @@ header {
 }
 
 .ati-ucv {
-    font-size: 2.125rem; 
+    font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
 
-.ucv-text {
-    font-size: 0.875rem; 
-    color: #ffffff;
+.ati-text {
+    color: white;
+    font-size: 30px;
 }
+
+.ucv-brackets {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 0 2px;
+}
+
+.year-text {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
 
 .user-greeting {
     font-weight: bold;
@@ -528,6 +541,7 @@ footer p {
     padding: 0.9375rem; 
     margin: 0.9375rem 0; 
     flex-shrink: 0;
+    font-family:Arial;
     font-size: 1rem; 
 }
 

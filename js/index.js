@@ -1,5 +1,18 @@
 // js/index.js
 
+(function() {
+    // Redirección automática al cargar la página
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+    
+    // Si no hay parámetro lang, añadirlo
+    if (!lang && lang !== '') {
+        const nuevaUrl = window.location.pathname + '?lang=';
+        window.history.replaceState({}, '', nuevaUrl);
+        console.log('URL actualizada:', nuevaUrl);
+    }
+})();
+
 // Variables globales
 let listaPerfiles = [];
 let configIdioma = null;
@@ -41,7 +54,7 @@ async function cargarIdioma() {
     
     // Para inglés o portugués, cargar el archivo específico
     const archivoIdioma = configuracionIdiomas[lang];
-    const rutaIdioma = `./reto3/conf/${archivoIdioma}.json`;
+    const rutaIdioma = `./conf/${archivoIdioma}.json`;
     
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -88,33 +101,70 @@ function getConfigPorDefecto() {
 }
 
 // Función para aplicar el idioma a la interfaz
+// Función para aplicar el idioma a la interfaz
 function aplicarIdiomaInterfaz() {
-    if (!configIdioma) return;
-    
-    console.log('Aplicando idioma a la interfaz de index:', configIdioma);
-    
-    // Actualizar título de la página
-    if (configIdioma.sitio && Array.isArray(configIdioma.sitio)) {
-        document.title = configIdioma.sitio.join(' ');
+    if (!configIdioma) {
+        console.error('configIdioma no está definido');
+        configIdioma = getConfigPorDefecto();
     }
     
-   // Header ATI[UCV]
-const atiElement = document.querySelector('.ati-ucv');
-if (atiElement && configIdioma.sitio) {
-    let textoSitio = '';
-    if (configIdioma.sitio.length >= 3) {
-        // Si hay 3 elementos, asumimos: [0]=ATI, [1]=[UCV], [2]=año
-        const atiText = atiElement.querySelector('.ati-text');
-        const ucvText = atiElement.querySelector('.ucv-text');
-        const yearText = atiElement.querySelector('.year-text');
-        
-        if (atiText) atiText.textContent = configIdioma.sitio[0];
-        if (ucvText) ucvText.textContent = configIdioma.sitio[1];
-        if (yearText) yearText.textContent = configIdioma.sitio[2];
-    } else {
-        // Fallback: unir todo en el contenedor principal
-        atiElement.textContent = configIdioma.sitio.join(' ');
+    console.log('Aplicando idioma a la interfaz:', configIdioma);
+    
+    // 1. HEADER ATI[UCV] - CORREGIDO
+   const atiElement = document.querySelector('.ati-ucv');
+if (atiElement && configIdioma.sitio && Array.isArray(configIdioma.sitio)) {
+    const atiText = atiElement.querySelector('.ati-text');
+    const ucvBrackets = atiElement.querySelector('.ucv-brackets');
+    const yearText = atiElement.querySelector('.year-text');
+    
+    if (atiText) atiText.textContent = configIdioma.sitio[0] || 'ATI';
+    if (ucvBrackets) ucvBrackets.textContent = configIdioma.sitio[1] || '[UCV]';
+    if (yearText) yearText.textContent = configIdioma.sitio[2] || '2025-2';
+}
+    
+    // 2. SALUDO DEL USUARIO - CORREGIDO
+    const greetingElement = document.querySelector('.user-greeting');
+    if (greetingElement) {
+        if (configIdioma.saludo) {
+            // Mostrar saludo + nombre (Brandon en este caso)
+            greetingElement.textContent = `${configIdioma.saludo}, Brandon`;
+        } else if (configIdioma.login) {
+            // Usar login como alternativa
+            greetingElement.textContent = configIdioma.login;
+        } else {
+            greetingElement.textContent = 'Hola, Usuario';
+        }
     }
+    
+    // 3. CAMPO DE BÚSQUEDA - CORREGIDO
+    const searchInput = document.querySelector('.search-form input');
+    if (searchInput) {
+        if (configIdioma.buscar) {
+            searchInput.placeholder = configIdioma.buscar + '...';
+        } else {
+            searchInput.placeholder = 'Buscar...';
+        }
+    }
+    
+    // 4. BOTÓN DE BÚSQUEDA - CORREGIDO
+    const searchButton = document.querySelector('.search-form button');
+    if (searchButton) {
+        if (configIdioma.buscar) {
+            searchButton.textContent = configIdioma.buscar;
+            // También puedes usar HTML para un ícono
+            // searchButton.innerHTML = '🔍 ' + configIdioma.buscar;
+        } else {
+            searchButton.textContent = 'Buscar';
+        }
+    }
+    
+    // 5. FOOTER
+    const footerElement = document.querySelector('footer p');
+    if (footerElement && configIdioma.copyRight) {
+        footerElement.textContent = configIdioma.copyRight;
+    }
+    
+    console.log('Interfaz actualizada correctamente');
 }
     
     // Saludo del usuario
@@ -142,7 +192,8 @@ if (atiElement && configIdioma.sitio) {
     }
     
     console.log('Interfaz actualizada con el idioma seleccionado');
-}
+
+
 
 // Función para inicializar la pagina
 async function inicializar() {
@@ -240,7 +291,7 @@ function crearElementoEstudiante(perfil) {
     const li = document.createElement('li');
     li.className = 'persona-item';
     
-    const imagenSrc = `./reto3/${perfil.imagen}`;
+    const imagenSrc = `./${perfil.imagen}`;
     
     li.innerHTML = `
         <div class="imagen-container">

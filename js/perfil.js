@@ -18,9 +18,12 @@ async function cargarIdioma() {
     const lang = obtenerParametroURL('lang') || 'es'; // Por defecto español
     
     console.log(`Cargando idioma: ${lang}`); //Ej: perfil.html?lang=
+
+    
     
     const archivoIdioma = configuracionIdiomas[lang] || 'configES';
-    const rutaIdioma = `reto3/conf/${archivoIdioma}.json`;
+    //const rutaIdioma = `reto3/conf/${archivoIdioma}.json`;
+    const rutaIdioma = `./conf/${archivoIdioma}.json`;
     
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -28,6 +31,9 @@ async function cargarIdioma() {
         
         script.onload = function() {
             // Buscar la variable de configuración
+            //console.log(this.constructor.name); // "HTMLScriptElement"
+            //console.log(this instanceof Object); // true
+            //console.log(typeof this); // "object"
             if (typeof config !== 'undefined') {
                 configIdioma = config;
                 console.log('Configuración de idioma cargada:', configIdioma);
@@ -39,7 +45,12 @@ async function cargarIdioma() {
         };
         
         script.onerror = function() {
-            console.error(`Error cargando idioma: ${rutaIdioma}`);
+            //console.log('=== DEBUG script.onerror - cargarIdioma ===');
+            //console.log('this.constructor.name:', this.constructor.name);
+            //console.log('this instanceof Object:', this instanceof Object);
+            //console.log('typeof this:', typeof this);
+            //console.log('this.src:', this.src);
+            //console.error(`Error cargando idioma: ${rutaIdioma}`);
             // Cargar idioma por defecto
             cargarIdiomaPorDefecto().then(resolve).catch(reject);
         };
@@ -52,8 +63,11 @@ async function cargarIdioma() {
 async function cargarIdiomaPorDefecto() {
     return new Promise((resolve) => {
         const script = document.createElement('script');
-        script.src = 'reto3/conf/configES.json';
-        
+        script.src = './conf/configES.json';
+        // console.log('=== DEBUG script.onload - cargarIdiomaPorDefecto ===');
+        //console.log('this.constructor.name:', this.constructor.name);
+        //console.log('this instanceof Object:', this instanceof Object);
+        //console.log('typeof this:', typeof this);
         script.onload = function() {
             if (typeof config !== 'undefined') {
                 configIdioma = config;
@@ -65,6 +79,11 @@ async function cargarIdiomaPorDefecto() {
         
         script.onerror = function() {
             console.error('Error cargando idioma por defecto');
+
+            //console.log('=== DEBUG script.onerror - cargarIdiomaPorDefecto ===');
+            //console.log('this.constructor.name:', this.constructor.name);
+            //console.log('this instanceof Object:', this instanceof Object);
+            //console.log('typeof this:', typeof this);
             // Configuración mínima por defecto
             configIdioma = {
                 "sitio": ["ATI", "[UCV]", "2025-2"],
@@ -135,7 +154,7 @@ function probarImagen(url) {
 }
 
 async function encontrarImagen(ci) {
-    const rutaBase = `reto3/${ci}/`;
+    const rutaBase = `${ci}/`;
     const formatos = ['.jpg', '.png', '.JPG', '.PNG', '.jpeg', '.JPEG'];
     
     const nombresPosibles = [
@@ -174,7 +193,7 @@ async function cargarPerfil() {
 
     console.log(`Cargando perfil para CI: ${ci}`);
 
-    const rutaPerfil = `reto3/${ci}/perfil.json`;
+    const rutaPerfil = `/${ci}/perfil.json`;
 
     const script = document.createElement('script');
     script.src = rutaPerfil;
